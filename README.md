@@ -8,7 +8,7 @@ Works best when bound to a key ex:  **bind v sm_taser**
 * sm_gt_max_round: Amount of tasers player can recive each round (def: 1)
 * sm_gt_max_life: Amount of tasers player can recive each life (def: -1)
 * sm_gt_admin_flag: Admin flag required to receive a taser none for no flag needed any allows any admin flag (def: any)
-Valid flags: abcdefghijkmnzop"
+Valid flags: any, none, a,b,c,d,e,f,g,h,i,j,k,m,n,z,o,p
 
 ---
 ### Note:
