@@ -1,5 +1,5 @@
 # [CSGO] give_taser
-Gives an admin or any user a taser when they type !taser or /taser in chat, or sm_taser in console. This is useful if you dont want to spawn with a taser, since taser is in the same slot as knife and csgo always takes the taser out first. Command can be public, any admin, or a specific admin flag required.   
+Gives an admin or any user a taser and equips the taser when they type !taser or /taser in chat, or sm_taser in console. If player already has a taser, using sm_taser will equip it. This is useful if you dont want to spawn with a taser, since taser is in the same slot as knife and csgo always takes the taser out first. Command can be public, any admin, or a specific admin flag required.   
 Works best when bound to a key ex:  **bind v sm_taser**
 
 ---
