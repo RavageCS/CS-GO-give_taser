@@ -22,7 +22,7 @@ public Plugin myinfo =
     name = "[CS:GO] Give Taser",
     author = "Gdk",
     description = "Allows admins or all players to receive a taser",
-    version = "1.0.2",
+    version = "1.1.0",
     url = "https://github.com/RavageCS/CS-GO-give_taser"
 };
 
@@ -65,7 +65,7 @@ public void OnClientCookiesCached(int client)
 
 public Action Command_Taser(int client, int args) 
 {
-	if(g_enabled && !g_error)
+	if(g_enabled && !g_error && IsPlayerAlive(client))
 	{
 		if(StrEqual(g_s_admin_flag, "none", false) || StrEqual(g_s_admin_flag, "no", false))
 		{
@@ -122,7 +122,7 @@ public void GiveTaser(int client)
 {
 	new String:weaponName[50];
 	new ent = GetPlayerWeaponSlot(client, 2);
-	if(IsValidEntity(ent) && IsClientInGame(client))
+	if(IsValidEntity(ent))
 	{
 		GetEntityClassname(ent, weaponName, sizeof(weaponName));
 
@@ -182,10 +182,10 @@ public void GiveTaser(int client)
 		}
 	}
 
-	else if( (g_max_round_gives == -1 && g_num_life_gives[client] < g_max_life_gives) || (g_max_life_gives == -1 && g_num_round_gives[client] < g_max_round_gives) || (g_num_round_gives[client] < g_max_round_gives && g_num_life_gives[client] < g_max_life_gives) )
+	else if( (g_max_round_gives == -1 && g_num_life_gives[client] < g_max_life_gives) || (g_max_life_gives == -1 && g_num_round_gives[client] < g_max_round_gives) || (g_num_round_gives[client] < g_max_round_gives && g_num_life_gives[client] < g_max_life_gives))
 	{
 		GivePlayerItem(client, "weapon_taser");
-		FakeClientCommand(client, "weapon_taser");
+		FakeClientCommand(client, "use weapon_taser");
 		g_num_round_gives[client]++;
 		g_num_life_gives[client]++;
 	}		
