@@ -22,7 +22,7 @@ public Plugin myinfo =
     name = "[CS:GO] Give Taser",
     author = "Gdk",
     description = "Allows admins or all players to receive a taser",
-    version = "1.1.0",
+    version = "1.1.3",
     url = "https://github.com/RavageCS/CS-GO-give_taser"
 };
 
@@ -43,6 +43,8 @@ public void OnPluginStart()
 
 	LoadTranslations("core.phrases");
 
+	RegConsoleCmd("sm_taser", Command_Taser, "Gives admins or anyone a taser");
+
 	AutoExecConfig(true, "give_taser");
 }
 
@@ -52,9 +54,7 @@ public void OnConfigsExecuted()
 	g_max_round_gives = GetConVarInt(g_h_max_round_gives);
 	g_max_life_gives = GetConVarInt(g_h_max_life_gives);
 	GetConVarString(g_h_admin_flag, g_s_admin_flag, 32);
-	g_error = false;
-	RegConsoleCmd("sm_taser", Command_Taser, "Gives admins or anyone a taser");	
-	
+	g_error = false;	
 }
 
 public void OnClientCookiesCached(int client) 
@@ -65,7 +65,7 @@ public void OnClientCookiesCached(int client)
 
 public Action Command_Taser(int client, int args) 
 {
-	if(g_enabled && !g_error && IsPlayerAlive(client))
+	if(g_enabled && !g_error && IsClientConnected(client) && IsPlayerAlive(client))
 	{
 		if(StrEqual(g_s_admin_flag, "none", false) || StrEqual(g_s_admin_flag, "no", false))
 		{
