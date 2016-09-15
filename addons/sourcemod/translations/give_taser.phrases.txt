@@ -1,0 +1,18 @@
+"Phrases"
+{
+	"cooldown"
+	{
+		"#format"		"{1:i}"
+		"en"			"Give Taser on cooldown for {1} seconds"
+	}
+
+	"round"
+	{
+		"en"		"You have used all tasers for this round"
+	}
+	
+	"life"
+	{
+		"en"		"You have used all tasers for this life"
+	}
+}
