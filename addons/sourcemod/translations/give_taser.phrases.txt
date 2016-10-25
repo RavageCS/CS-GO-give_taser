@@ -15,4 +15,9 @@
 	{
 		"en"		"You have used all tasers for this life"
 	}
+	
+	"money"
+	{
+		"en"		"Insufficient Funds"
+	}
 }

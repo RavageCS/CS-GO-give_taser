@@ -19,7 +19,6 @@ new String:g_s_admin_flag[32];
 bool g_error;			//Global if cvar is a valid flag
 int g_num_round_gives[MAXPLAYERS+1];
 int g_num_life_gives[MAXPLAYERS+1];
-int g_num_buys[MAXPLAYERS+1];
 int g_taser_price = 200;
 new g_taser_time[MAXPLAYERS+1];
 
@@ -28,7 +27,7 @@ public Plugin myinfo =
     	name = "[CS:GO] Give Taser",
     	author = "Gdk",
     	description = "Allows admins or all players to receive a taser",
-    	version = "2.0.3",
+    	version = "2.1.0",
     	url = "https://github.com/RavageCS/CS-GO-give_taser"
 };
 
@@ -71,7 +70,6 @@ public void OnClientCookiesCached(int client)
 {
 	g_num_round_gives[client] = 0;
 	g_num_life_gives[client] = 0;
-	g_num_buys[client] = 0;
 }
 
 public Action Command_Taser(int client, int args) 
@@ -140,7 +138,7 @@ public void GiveTaser(int client)
 	
 	if(Client_HasWeapon(client, "weapon_taser"))
 	{
-		if(StrEqual(currentWeapon, "weapon_taser", false) && g_num_buys[client] < 1)
+		if(StrEqual(currentWeapon, "weapon_taser", false))
 		{
 			ClientCommand(client, "lastinv");
 			RemovePlayerItem(client, ent1);
@@ -172,33 +170,30 @@ public void GiveTaser(int client)
 			   && !StrEqual(currentWeapon, "weapon_smokegrenade", false))
 				ClientCommand(client, "slot3");
 			
-			if(GetConVarBool(g_h_track_money))
-			{	
-				new Cash = GetEntProp(client, Prop_Send, "m_iAccount"); // get money
-				if(Cash >= g_taser_price)
-				{
-					Cash -= g_taser_price;
-					SetEntProp(client, Prop_Send, "m_iAccount", Cash); // change money
-				}
-			}
-
 			g_num_round_gives[client]++;
 			g_num_life_gives[client]++;
 		}
    	}
-
 }
 
 public bool CanReceiveTaser(int client)
 {
 	bool give_taser = true;
 	
-	if(GetConVarBool(g_h_track_buys))
-	{
-		g_num_round_gives[client] += g_num_buys[client];
-		g_num_life_gives[client] += g_num_buys[client];
+	if(GetConVarBool(g_h_track_money))
+	{	
+		new Cash = GetEntProp(client, Prop_Send, "m_iAccount"); // get money
+		if(Cash >= g_taser_price)
+		{
+			Cash -= g_taser_price;
+			SetEntProp(client, Prop_Send, "m_iAccount", Cash); // change money
+		}
+		else
+		{
+			PrintToChat(client, "%t", "money");
+			give_taser = false;
+		}
 	}
-
 
 	if(g_num_round_gives[client] >= g_max_round_gives && g_max_round_gives != -1)
 	{
@@ -229,10 +224,8 @@ public Action CS_OnBuyCommand(int client, const char[] weapon)
 {	
 	if(GetConVarBool(g_h_track_buys) && StrEqual(weapon, "taser", false))
 	{
-		if(!CanReceiveTaser(client))
-			return Plugin_Handled;
-		else
-			g_num_buys[client]++;
+		GiveTaser(client);
+		return Plugin_Handled;
 	}
 
 	return Plugin_Continue;
@@ -242,15 +235,13 @@ public EventPlayerDeath(Handle:event, const String:name[],bool:dontBroadcast)
 {
 	new client = GetClientOfUserId(GetEventInt(event, "userid"));
 	g_num_life_gives[client] = 0;
-	g_num_buys[client] = 0;
 }
 
 public EventRoundStart(Handle:event, const String:name[],bool:dontBroadcast)
 {
 	for(int i; i < MAXPLAYERS+1; i++)
 	{
-		g_num_round_gives[i] = 0;
-		g_num_buys[i] = 0;		
+		g_num_round_gives[i] = 0;		
 	}
 }
 
