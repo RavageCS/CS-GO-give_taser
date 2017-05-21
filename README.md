@@ -23,7 +23,7 @@ Works best when bound to a key ex:  **bind t sm_taser**
 * sm_gt_track_buys: Should plugin count tasers purchased from buy menu (def: 1)
 * sm_gt_track_money: Require player to pay $200 to receive a taser (def: 0)
 * sm_gt_admin_flag: Admin flag required to receive a taser none for no flag needed any allows any admin flag (def: any)
-Valid flags: any, none, a,b,c,d,e,f,g,h,i,j,k,m,n,z,o,p
+Valid flags: any,a,b,c,d,e,f,g,h,i,j,k,m,n,z,o,p
 
 ---
 [Allied Modders Thread](https://forums.alliedmods.net/showthread.php?t=286092 "Allied Modders Thread")
