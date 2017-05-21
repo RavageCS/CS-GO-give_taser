@@ -15,6 +15,11 @@
 	{
 		"en"		"You have used all tasers for this life"
 	}
+
+	"map"
+	{
+		"en"		"You have used all tasers for this map"
+	}
 	
 	"money"
 	{
