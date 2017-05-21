@@ -34,14 +34,14 @@ public Plugin myinfo =
     	name = "[CS:GO] Give Taser",
     	author = "Gdk",
     	description = "Allows admins or all players to receive a taser",
-    	version = "2.2.0",
+    	version = "2.2.1",
     	url = "https://github.com/RavageCS/CS-GO-give_taser"
 };
 
 public void OnPluginStart() 
 {
 	g_h_enabled = 			CreateConVar("sm_gt_enabled",    "1", "Whether the plugin is enabled");
-	g_h_public_enabled = 		CreateConVar("sm_gt_enabled",    "1", "Whether non admins can receive a taser");
+	g_h_public_enabled = 		CreateConVar("sm_gt_public_enabled",    "1", "Whether non admins can receive a taser");
 	
 	g_h_max_admin_round_gives =   	CreateConVar("sm_gt_max_admin_round", "1", "Number of tasers admins can receive per round \nUse -1 for infinite");
 	g_h_max_admin_life_gives =    	CreateConVar("sm_gt_max_admin_life", "-1", "Number of tasers admins can receive per life \nUse -1 for infinite");
